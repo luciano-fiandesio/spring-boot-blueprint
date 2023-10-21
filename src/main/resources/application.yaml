@@ -5,3 +5,11 @@ spring:
     password: secret3
   jpa:
     open-in-view: false
+  security:
+    oauth2:
+      resourceserver:
+          jwt:
+            issuer-uri: http://localhost:9900/auth/realms/blueprint
+
+cors:
+  allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
