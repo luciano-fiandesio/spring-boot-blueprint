@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - "15432:5432"
+    environment:
+      - 'POSTGRES_USER=blueprint'
+      - 'POSTGRES_DB=blueprintdb'
+      - 'POSTGRES_PASSWORD=secret3'
+      - 'PGDATA=/data/postgres'
+    networks:
+      - postgres-network
+    volumes:
+      - postgres:/data/postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "15433:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+        - pgadmin:/var/lib/pgadmin
+
+    depends_on:
+      - database
+    networks:
+      - postgres-network
+
+volumes:
+  postgres:
+  pgadmin:
+
+networks:
+  postgres-network:
+    driver: bridge

@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:15432/blueprintdb
+    username: blueprint
+    password: secret3
+  jpa:
+    open-in-view: false
