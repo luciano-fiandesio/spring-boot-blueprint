@@ -5,6 +5,9 @@ spring:
     password: secret3
   jpa:
     open-in-view: false
+  liquibase:
+    change-log: classpath:db-changelog.xml
+    enabled: true
   security:
     oauth2:
       resourceserver:

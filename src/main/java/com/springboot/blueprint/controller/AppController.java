@@ -9,14 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/app")
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class AppController {
 
     private final BuildProperties buildProperties;
-
-    public AppController(BuildProperties buildProperties) {
-        this.buildProperties = buildProperties;
-    }
 
     @GetMapping(value = "/build")
     //@PreAuthorize("isAuthenticated()")
