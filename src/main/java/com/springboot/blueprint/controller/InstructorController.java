@@ -1,0 +1,29 @@
+package com.springboot.blueprint.controller;
+
+import com.springboot.blueprint.api.controller.InstructorsApi;
+import com.springboot.blueprint.api.model.Instructor;
+import com.springboot.blueprint.service.InstructorService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+public class InstructorController implements InstructorsApi {
+
+    private final InstructorService instructorService;
+
+    @Override
+    public ResponseEntity<Void> createInstructor(Instructor instructor) {
+        instructorService.createInstructor(instructor);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<List<Instructor>> listInstructors() {
+        return InstructorsApi.super.listInstructors();
+    }
+}

@@ -1,0 +1,185 @@
+openapi: 3.0.0
+info:
+  title: Educational Course Management System API
+  description: RESTful API for managing an educational course system.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api
+    description: Development server
+
+paths:
+  /instructors:
+    get:
+      summary: Get a list of all instructors
+      operationId: listInstructors
+      responses:
+        '200':
+          description: A JSON array of instructors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instructor'
+
+    post:
+      summary: Create a new instructor
+      operationId: CreateInstructor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Instructor'
+      responses:
+        '201':
+          description: Instructor created
+
+  /courses:
+    get:
+      summary: Get a list of all courses
+      responses:
+        '200':
+          description: A JSON array of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+
+    post:
+      summary: Create a new course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '201':
+          description: Course created
+
+  /courses/{courseId}:
+    get:
+      summary: Get a course by ID
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course not found
+
+    put:
+      summary: Update a course
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        '200':
+          description: Course updated
+        '404':
+          description: Course not found
+
+    delete:
+      summary: Delete a course
+      parameters:
+        - in: path
+          name: courseId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Course deleted
+        '404':
+          description: Course not found
+
+# Similar endpoints would be defined for students, instructors, enrollments, assignments, and submissions
+
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        courseId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        creditPoints:
+          type: integer
+        instructorId:
+          type: integer
+
+    Instructor:
+        type: object
+        properties:
+            instructorId:
+              type: integer
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+            meta:
+              $ref: "#/components/schemas/Meta"
+    Meta:
+      type: object
+      readOnly: true
+      properties:
+        created_at:
+          description: timestamp when the object was created
+          type: string
+          format: date-time
+        updated_at:
+          description: timestamp when the object was last updated
+          type: string
+          format: date-time
+        created_by:
+          description: id of the user who created the object
+          type: string
+        updated_by:
+          description: id of the user who last updated the object
+          type: string
+
+    DefaultError:
+      type: object
+      readOnly: true
+      properties:
+        type:
+          type: string
+          description: type of the error
+        title:
+          type: string
+          description: title of the error
+        status:
+          description: http status code
+          type: integer
+          format: int32
+          minimum: 100
+          maximum: 599
+        detail:
+          type: string
+          description: detailed description of the error
