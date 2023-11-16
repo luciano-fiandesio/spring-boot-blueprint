@@ -20,15 +20,14 @@ public class InstructorJpa extends Auditable {
 
     @Id
     @Tsid
-    @Column(name = "instructor_id", nullable = false)
-    private Long instructorId;
+    @Column(nullable = false)
+    private Long id;
 
     @Column(nullable = false)
     private String firstName;
 
     @Column(nullable = false)
     private String lastName;
-
 
     @Column(name = "email", nullable = false, unique = true, length = 255)
     private String email;
@@ -45,7 +44,7 @@ public class InstructorJpa extends Auditable {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         InstructorJpa that = (InstructorJpa) o;
-        return getInstructorId() != null && Objects.equals(getInstructorId(), that.getInstructorId());
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override

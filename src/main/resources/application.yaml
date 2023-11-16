@@ -16,3 +16,9 @@ spring:
 
 cors:
   allowed-origins: ${CORS_ORIGINS:http://localhost:4200}
+
+app:
+  jwt:
+    mapping:
+      principal-claim-name: preferred_username
+      authorities-claim-name: realm_access

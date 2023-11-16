@@ -121,25 +121,25 @@ components:
     Course:
       type: object
       properties:
-        courseId:
+        id:
           type: integer
         title:
           type: string
         description:
           type: string
-        creditPoints:
+        credit_points:
           type: integer
-        instructorId:
+        instructor_id:
           type: integer
 
     Instructor:
         type: object
         properties:
-            instructorId:
+            id:
               type: integer
-            firstName:
+            first_name:
               type: string
-            lastName:
+            last_name:
               type: string
             email:
               type: string

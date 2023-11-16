@@ -2,7 +2,10 @@ package com.springboot.blueprint.mapper;
 
 import com.springboot.blueprint.api.model.Instructor;
 import com.springboot.blueprint.entities.InstructorJpa;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(
         unmappedTargetPolicy = ReportingPolicy.ERROR,
