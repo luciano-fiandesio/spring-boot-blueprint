@@ -12,14 +12,13 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class InstructorController implements InstructorsApi {
+public class InstructorController extends RestResourceController implements InstructorsApi {
 
     private final InstructorService instructorService;
 
     @Override
-    public ResponseEntity<Void> createInstructor(Instructor instructor) {
-        instructorService.createInstructor(instructor);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Instructor> createInstructor(Instructor instructor) {
+        return withVersion(instructorService.createInstructor(instructor), HttpStatus.CREATED);
     }
 
     @Override

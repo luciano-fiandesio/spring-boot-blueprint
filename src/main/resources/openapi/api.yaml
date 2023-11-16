@@ -34,7 +34,11 @@ paths:
               $ref: '#/components/schemas/Instructor'
       responses:
         '201':
-          description: Instructor created
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Instructor"
 
   /courses:
     get:
